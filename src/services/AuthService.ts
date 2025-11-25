@@ -1,6 +1,6 @@
-import { AuthSchemaInterface } from "../schemas/AuthSchema";
+import { AuthSchemaInterface, RefreshTokenSchemaInterface } from "../schemas/AuthSchema";
 import InMemoryUserRepository from "../repositories/in-memory/InMemoryUserRepository";
-import { generateJWT } from "./helpers/AuthHelper";
+import { generateJWT, verifyJWT } from "./helpers/AuthHelper";
 import bcryt from "bcrypt";
 
 
@@ -28,7 +28,10 @@ class AuthService {
         return {token, refresh_token};
     }
 
-    async refreshToken() {}
+    async refreshToken(dataValidate: RefreshTokenSchemaInterface) {
+        const verifyToken = verifyJWT(dataValidate.token);
+        const verifyRefreshToken = verifyJWT(dataValidate.refresh_token);
+    }
 
 }
 
